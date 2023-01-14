@@ -1,13 +1,62 @@
-import { ScrollView, VStack, Text, Icon, useColorMode } from 'native-base';
+import { ScrollView, VStack, Text, Icon, useColorMode, Input, Stack } from 'native-base';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { PrimaryButton } from '../components/UI/Button';
-import { SignOut } from '../components/UserContext';
+import { useUser, storeProfileData, SignOut } from '../components/UserContext';
 import { RootTabScreenProps } from '../types';
+import { useState, useEffect } from "react";
+import { supabase } from "../lib/initSupabase";
+import { Alert, View } from "react-native";
+import { ApiError } from "@supabase/supabase-js";
 
 export default function SettingsScreen({
   navigation,
 }: RootTabScreenProps<'Settings'>) {
   const { colorMode, toggleColorMode } = useColorMode();
+  const { user,profile } = useUser();
+  const [loading, setLoading] = useState(false);
+ 
+  const [username, setUsername] = useState(profile.username);
+  const [website, setWebsite] = useState(profile.website);
+  const [avatar_url, setAvatar_url] = useState(profile.avatar_url);
+
+
+  
+  async function updateProfile({
+    username,
+    website,
+    avatar_url,
+  }: {
+    username: string;
+    website: string;
+    avatar_url: string;
+  }) {
+    try {
+      setLoading(true);
+      if (!user) throw new Error("No user on the session!");
+
+      const updates = {
+        id: user.id,
+        username,
+        website,
+        avatar_url,
+        updated_at: new Date(),
+      };
+
+      let { error } = await supabase
+        .from("profiles")
+        .upsert(updates, { returning: "minimal" });
+
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      Alert.alert((error as ApiError).message);
+    } finally {
+      storeProfileData({ username, website, avatar_url });
+      setLoading(false);
+
+    }
+  }
 
   return (
     <ScrollView pt="10" px={4}>
@@ -36,6 +85,34 @@ export default function SettingsScreen({
           Edit Profile
         </PrimaryButton>
         <PrimaryButton onPress={() => SignOut()}>Sign Out</PrimaryButton>
+        <View>
+        <Stack space={6} w="75%" maxW="300px" mx="auto">
+        <Input size="xl" label="Email" value={user?.email} disabled />
+
+
+        <Input
+        size="xl"
+          label="Username"
+          value={username || ""}
+          onChangeText={(text) => setUsername(text)}
+        />
+
+
+        <Input
+        size="xl"
+          label="Website"
+          value={website || ""}
+          onChangeText={(text) => setWebsite(text)}
+        />
+      </Stack>
+
+      <View>
+        <PrimaryButton
+          onPress={() => updateProfile({ username, website, avatar_url })}
+          disabled={loading}
+        >Update Profile</PrimaryButton>
+      </View>
+    </View>
       </VStack>
     </ScrollView>
   );

@@ -13,3 +13,13 @@ web-build/
 
 # macOS
 .DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+# windows
+Thumbs.db
+ehthumbs.db
+
+# env
+.env
