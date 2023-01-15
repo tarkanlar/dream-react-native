@@ -5,14 +5,11 @@ import { PrimaryButton, LinkButton } from '../UI/Button';
 import { PrimaryInput } from '../UI/Input';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Center, Heading, VStack, FormControl, Text, WarningOutlineIcon, Icon } from 'native-base';
+import { handleToken } from '../../components/Auth/AuthHelper';
 
+export default function OTP({ route, navigation }){
+   const { email } = route.params;
 
-interface Props {
-    handleToken: (email: string, token: string) => void;
-    otpEmail: string;
-}
-
-export const OTPform: React.FC<Props> = ({ handleToken, otpEmail }) => {
     return (
         <Center
         _dark={{
@@ -29,7 +26,7 @@ export const OTPform: React.FC<Props> = ({ handleToken, otpEmail }) => {
           validationSchema={Yup.object().shape({
             token: Yup.string().required('Token is required'),
           })}
-          onSubmit={values => handleToken(otpEmail, values.token)}
+          onSubmit={values => handleToken(email, values.token, navigation)}
         >
           {({
             errors,

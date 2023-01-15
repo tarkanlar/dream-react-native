@@ -23,7 +23,8 @@ export default function Signup({ navigation }){
     onSubmit={values =>
       handleSignup(
         values.email,
-        values.password
+        values.password,
+        navigation
       )
     }
   >

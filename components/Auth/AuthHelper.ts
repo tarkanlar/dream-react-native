@@ -1,6 +1,6 @@
 import { supabase } from '../../lib/initSupabase';
 import { Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native'
+
 
 
 
@@ -18,7 +18,7 @@ Alert.alert(error.message);
  
 }
 };
-export const handleSignup = async (email: string, password: string) => {
+export const handleSignup = async (email: string, password: string, navigation) => {
 // submit OTP token with email
 
     try {
@@ -42,13 +42,22 @@ export const handleSignup = async (email: string, password: string) => {
       Alert.alert(error.message);
       throw error;
     }
-    const { error, user } = await supabase.auth.signUp({ email, password });
+    try {
+    const { error, user } = await supabase.auth.signUp({ email, password })
+  } catch (error: any) {
+    Alert.alert(error.message);
+    throw error;
+  } finally 
+  {
+    navigation.navigate('OTP', {email})
+  }
 
 };
 
 
-export const handleToken = async (email: string, token: string) => {
+export const handleToken = async (email: string, token: string, navigation) => {
 // submit OTP token with email
+console.log('yo', email, token, navigation)
 const { session, error } = await supabase.auth.verifyOTP({
 email,
 token,

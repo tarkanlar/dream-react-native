@@ -4,7 +4,7 @@ import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginForm  from '../components/Auth/LoginForm';
 import SignupForm from '../components/Auth/SignupForm';
-import { OTPform } from '../components/Auth/OTPform';
+import OTPform  from '../components/Auth/OTPform';
 
 import { AuthStackScreenProps } from '../types';
 
@@ -26,11 +26,11 @@ function SignupScreen({ navigation,
   );
 }
 
-function OTPScreen({ navigation, 
+function OTPScreen({ route, navigation, 
 }: AuthStackScreenProps<'OTP'>) {
   return (
     <>
-    <OTPform navigation={navigation}/>
+    <OTPform route={route} navigation={navigation}/>
 </>
   );
 }
