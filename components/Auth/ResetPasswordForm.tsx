@@ -1,30 +1,28 @@
 import { Formik } from 'formik';
 import { PrimaryButton } from '../UI/Button';
 import { PrimaryInput } from '../UI/Input';
-import { FormSchema } from '../../lib/helpers';
+import { ResetPasswordSchema } from '../../lib/helpers';
 import React, { useState } from 'react';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Center, Heading, VStack, FormControl, Text, WarningOutlineIcon, Icon, HStack } from 'native-base';
 import { LinkButton } from '../UI/Button';
 
-import { handleLogin } from '../../components/Auth/AuthHelper';
+import { handlePasswordReset } from '../../components/Auth/AuthHelper';
 
 
 
-export default function Login({ navigation }) {
-  const [passShow, setPassShow] = useState<boolean>(false);
+export default function ResetPasswordForm({ navigation }) {
 
   return (
     <Formik
     initialValues={{
-      email: 'tarkan@hey.com',
-      password: 'Aq2313ws0!',
+      email: 'tarkan@hey.com'
     }}
-    validationSchema={FormSchema}
+    validationSchema={ResetPasswordSchema}
     onSubmit={values =>
-      handleLogin(
+      handlePasswordReset(
         values.email,
-        values.password
+        navigation
       )
     }
   >
@@ -45,7 +43,7 @@ export default function Login({ navigation }) {
         flex={1}
       >
         <VStack space={5} alignItems="center" w="100%">
-          <Heading>Login</Heading>
+          <Heading>Forget Password</Heading>
           <FormControl
             isInvalid={'email' in errors && touched.email}
             maxW="100%"
@@ -76,54 +74,7 @@ export default function Login({ navigation }) {
               {errors.email}
             </FormControl.ErrorMessage>
           </FormControl>
-          <FormControl
-            isInvalid={'password' in errors && touched.password}
-            maxW="100%"
-          >
-            <PrimaryInput
-              type={passShow ? 'text' : 'password'}
-              placeholder="Password"
-              onChangeText={handleChange('password')}
-              onBlur={handleBlur('password')}
-              value={values.password}
-              error={errors.password}
-              touched={touched.password}
-              InputLeftElement={
-                <Icon
-                  as={<FontAwesome5 name="lock" />}
-                  size={5}
-                  ml="5"
-                  _dark={{
-                    color: 'gray.500',
-                  }}
-                  _light={{ color: 'gray.900' }}
-                />
-              }
-              InputRightElement={
-                <Icon
-                  as={
-                    <FontAwesome5 name={passShow ? 'eye' : 'eye-slash'} />
-                  }
-                  size={5}
-                  mr="5"
-                  minWidth="6"
-                  _dark={{
-                    color: 'gray.500',
-                  }}
-                  _light={{ color: 'gray.900' }}
-                  onPress={() => setPassShow(!passShow)}
-                />
-              }
-            />
-            <FormControl.ErrorMessage
-              leftIcon={<WarningOutlineIcon size="xs" />}
-            >
-              {errors.password}
-            </FormControl.ErrorMessage>
-          </FormControl>
-          <LinkButton>
-              Forget Password
-            </LinkButton>
+          
           <PrimaryButton
             isDisabled={isSubmitting || !isValid}
             isLoading={isSubmitting}
@@ -131,7 +82,7 @@ export default function Login({ navigation }) {
             onPress={() => handleSubmit()}
             onSubmitEditing={() => handleSubmit()}
           >
-            Login
+            Reset Password
           </PrimaryButton>
           <HStack alignItems="center">
             <Text>

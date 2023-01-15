@@ -5,9 +5,9 @@ import { PrimaryButton, LinkButton } from '../UI/Button';
 import { PrimaryInput } from '../UI/Input';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Center, Heading, VStack, FormControl, Text, WarningOutlineIcon, Icon } from 'native-base';
-import { handleToken } from '../../components/Auth/AuthHelper';
+import { handleToken } from './AuthHelper';
 
-export default function OTP({ route, navigation }){
+export default function OTPForm({ route, navigation }){
    const { email } = route.params;
 
     return (

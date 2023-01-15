@@ -14,3 +14,6 @@ export const FormSchema = Yup.object().shape({
       .min(8, ({ min }) => `Password must be at least ${min} characters`)
       .required('Password is required'),
   });
+  export const ResetPasswordSchema = Yup.object().shape({
+    email: Yup.string().email('Invalid email').required('Email is required'),
+  });

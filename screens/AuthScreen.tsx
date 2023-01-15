@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { View, Button, Text } from 'react-native';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginForm  from '../components/Auth/LoginForm';
 import SignupForm from '../components/Auth/SignupForm';
-import OTPform  from '../components/Auth/OTPform';
+import OTPForm  from '../components/Auth/OTPForm';
+import ResetPasswordForm from '../components/Auth/ResetPasswordForm';
 
 import { AuthStackScreenProps } from '../types';
 
@@ -30,10 +30,19 @@ function OTPScreen({ route, navigation,
 }: AuthStackScreenProps<'OTP'>) {
   return (
     <>
-    <OTPform route={route} navigation={navigation}/>
+    <OTPForm route={route} navigation={navigation}/>
 </>
   );
 }
+function ResetPasswordScreen({ route, navigation, 
+}: AuthStackScreenProps<'ResetPasword'>) {
+  return (
+    <>
+    <ResetPasswordForm route={route} navigation={navigation}/>
+</>
+  );
+}
+
 
 
 const Stack = createStackNavigator();
@@ -45,6 +54,7 @@ export default function AuthScreen() {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Signup" component={SignupScreen} />
         <Stack.Screen name="OTP" component={OTPScreen} />
+        <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

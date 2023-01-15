@@ -51,7 +51,7 @@ export default function Signup({ navigation }){
             maxW="100%"
           >
             <PrimaryInput
-              type="email"
+              type="text"
               placeholder="Email"
               onChangeText={handleChange('email')}
               onBlur={handleBlur('email')}

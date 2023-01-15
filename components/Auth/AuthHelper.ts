@@ -66,8 +66,19 @@ type: 'signup',
 if (error) Alert.alert(error.message);
 };
 
-export const handleForget = async (email: string) => {
+export const handlePasswordReset = async (email: string, navigation) => {
 // submit forget password request
-const { error } = await supabase.auth.api.resetPasswordForEmail(email);
-if (error) Alert.alert(error.message);
+console.log('yo', email, navigation)
+try {
+const { data, error } = await supabase.auth.api.resetPasswordForEmail(email);
+if (error) {
+Alert.alert(error.message);
+throw error;
+}
+} catch (error: any) {
+Alert.alert(error.message);
+throw error;
+} finally {
+navigation.navigate('Login'); 
+}
 };
