@@ -6,10 +6,7 @@ import React, { useState } from 'react';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Center, Heading, VStack, FormControl, Text, WarningOutlineIcon, Icon, HStack } from 'native-base';
 import { LinkButton } from '../UI/Button';
-
 import { handleLogin } from '../../components/Auth/AuthHelper';
-
-
 
 export default function Login({ navigation }) {
   const [passShow, setPassShow] = useState<boolean>(false);
@@ -24,7 +21,8 @@ export default function Login({ navigation }) {
     onSubmit={values =>
       handleLogin(
         values.email,
-        values.password
+        values.password,
+        navigation
       )
     }
   >
@@ -121,7 +119,7 @@ export default function Login({ navigation }) {
               {errors.password}
             </FormControl.ErrorMessage>
           </FormControl>
-          <LinkButton>
+          <LinkButton onPress={() => navigation.navigate('ResetPassword')}>
               Forget Password
             </LinkButton>
           <PrimaryButton
@@ -137,7 +135,7 @@ export default function Login({ navigation }) {
             <Text>
               Don't have an account yet?
             </Text>
-            <LinkButton  onPress={() => navigation.navigate('ResetPassword')}>
+            <LinkButton  onPress={() => navigation.navigate('Signup')}>
          Sign Up
         </LinkButton>
           </HStack>

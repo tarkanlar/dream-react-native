@@ -88,8 +88,16 @@ export default function ResetPasswordForm({ navigation }) {
             <Text>
               Don't have an account yet?
             </Text>
-            <LinkButton  onPress={() => navigation.navigate('ResetPassword')}>
+            <LinkButton onPress={() => navigation.navigate('Signup')}>
          Sign Up
+        </LinkButton>
+        </HStack>
+        <HStack alignItems="center">
+            <Text>
+              Have an Account?
+            </Text>
+            <LinkButton onPress={() => navigation.navigate('Login')}>
+         Login
         </LinkButton>
           </HStack>
 

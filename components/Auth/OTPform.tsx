@@ -90,7 +90,7 @@ export default function OTPForm({ route, navigation }){
                 <Text>
                   Check your email for the token. It will expire in 1 hour.
                 </Text>
-                <LinkButton>
+                <LinkButton onPress={() => navigation.navigate('Login')}>
                   Go back to Sign Up
                 </LinkButton>
               </VStack>

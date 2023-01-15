@@ -4,7 +4,7 @@ import { Alert } from 'react-native';
 
 
 
-export const handleLogin = async (email: string, password: string) => {
+export const handleLogin = async (email: string, password: string, navigation) => {
   
 const { error, user } = await supabase.auth.signIn({ email, password })
 
@@ -12,11 +12,8 @@ const { error, user } = await supabase.auth.signIn({ email, password })
 // if (error) Alert.alert(error.message);
 if (error) {
 Alert.alert(error.message);
-} else {
-
-// verify OTP
- 
-}
+navigation.navigate('OTP', {email})
+} 
 };
 export const handleSignup = async (email: string, password: string, navigation) => {
 // submit OTP token with email

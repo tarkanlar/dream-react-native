@@ -121,9 +121,6 @@ export default function Signup({ navigation }){
               {errors.password}
             </FormControl.ErrorMessage>
           </FormControl>
-          <LinkButton>
-              Forget Password
-            </LinkButton>
           <PrimaryButton
             isDisabled={isSubmitting || !isValid}
             isLoading={isSubmitting}
@@ -137,7 +134,7 @@ export default function Signup({ navigation }){
             <Text>
              Already have an account?
             </Text>
-            <LinkButton>
+            <LinkButton onPress={() => navigation.navigate('Login')}>
             Login
             </LinkButton>
           </HStack>
