@@ -19,6 +19,7 @@ declare global {
 export type AuthStackParamList = {
   Login: undefined;
   Signup: undefined;
+  OTP: undefined;
 };
 
 export type AuthStackScreenProps<Screen extends keyof AuthStackParamList> =

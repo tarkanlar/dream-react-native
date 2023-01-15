@@ -1,9 +1,13 @@
 import { supabase } from '../../lib/initSupabase';
 import { Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native'
+
 
 
 export const handleLogin = async (email: string, password: string) => {
-console.log(email, password);
+  
+const { navigate } = useNavigation()
+
 const { error, user } = await supabase.auth.signIn({ email, password })
 
   if (!error && !user) Alert.alert('Check your email for the code');
@@ -11,12 +15,15 @@ const { error, user } = await supabase.auth.signIn({ email, password })
 if (error) {
 Alert.alert(error.message);
 } else {
-// verify OTP
 
+// verify OTP
+ 
 }
 };
 export const handleSignup = async (email: string, password: string) => {
 // submit OTP token with email
+console.log('email', email)
+console.log('password', password)
     try {
     const { data, error, status } = await supabase
     .from('profiles')

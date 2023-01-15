@@ -4,15 +4,17 @@ import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LoginForm } from '../components/Auth/LoginForm';
 import { SignupForm } from '../components/Auth/SignupForm';
-import { handleLogin, handleSignup } from '../components/Auth/AuthHelper';
+import { OTPform } from '../components/Auth/OTPform';
+
+import { handleLogin, handleSignup, handleToken } from '../components/Auth/AuthHelper';
 import { AuthStackScreenProps } from '../types';
 
 function LoginScreen({ navigation,
 }: AuthStackScreenProps<'Login'>) {
   return (
     <>
-    <LoginForm handleLogin={handleLogin}  navigation={navigation}/>
-        </>
+    <LoginForm handleLogin={handleLogin}/>
+     </>
   );
 }
 
@@ -20,11 +22,20 @@ function SignupScreen({ navigation,
 }: AuthStackScreenProps<'Signup'>) {
   return (
     <>
-    <SignupForm handleSignup={handleSignup}  />
-
+    <SignupForm handleSignup={handleSignup} navigation={navigation}/>
 </>
   );
 }
+
+function OTPScreen({ navigation, 
+}: AuthStackScreenProps<'OTP'>) {
+  return (
+    <>
+    <OTPform handleToken={handleToken} navigation={navigation}/>
+</>
+  );
+}
+
 
 const Stack = createStackNavigator();
 
@@ -34,6 +45,7 @@ export default function AuthScreen() {
       <Stack.Navigator>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Signup" component={SignupScreen} />
+        <Stack.Screen name="OTP" component={OTPScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

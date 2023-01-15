@@ -1,7 +1,7 @@
 import { Formik } from 'formik';
 import { PrimaryButton } from '../UI/Button';
 import { PrimaryInput } from '../UI/Input';
-import { FormSchema } from '../../lib/helpers';
+//import { FormSchema } from '../../lib/helpers';
 import { useState } from 'react';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Center, Heading, VStack, FormControl, Text, WarningOutlineIcon, Icon, HStack } from 'native-base';
@@ -21,7 +21,6 @@ export const SignupForm: React.FC<Props> = ({ handleSignup }) => {
       email: '',
       password: '',
     }}
-    validationSchema={FormSchema}
     onSubmit={values =>
       handleSignup(
         values.email,
