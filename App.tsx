@@ -11,7 +11,9 @@ import useCachedResources from './hooks/useCachedResources';
 import Navigation from './navigation';
 
 import { UserContextProvider, useUser } from './components/UserContext';
-import Auth from './components/Auth';
+
+import AuthScreen from './screens/AuthScreen';
+
 import 'react-native-url-polyfill/auto';
 
 // Define the config
@@ -44,7 +46,7 @@ const colorModeManager: StorageManager = {
 const Container = () => {
   const { user } = useUser();
 
-  return user ? <Navigation /> : <Auth />;
+  return user ? <Navigation /> : <AuthScreen />;
 };
 
 export default function App() {

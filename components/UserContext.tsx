@@ -57,7 +57,6 @@ export const UserContextProvider = (props: any) => {
     setUser(session?.user ?? null);
     const { data: authListener } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        // console.log(`Supabase auth event: ${event}`);
         setSession(session);
         setUser(session?.user ?? null);
         if(event === 'SIGNED_IN'){
@@ -141,11 +140,8 @@ export const updateProfileData = async (value: any) => {
 
     const profileData = await AsyncStorage.getItem('@profile')
     if(profileData !== null) {
-     
       const profile = JSON.parse(profileData);
-      console.log('profile', profile);
       const newProfile = {...profile, ...value}
-      console.log('value', value);
       const newProfileString = JSON.stringify(newProfile);
       await AsyncStorage.setItem('@profile', newProfileString);
     }

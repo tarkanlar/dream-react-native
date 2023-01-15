@@ -31,7 +31,6 @@ export default function SettingsScreen({
       Alert.alert((error as ApiError).message);
     } finally {
       setLoading(false);
-      console.log(profile);
     }
   };
 

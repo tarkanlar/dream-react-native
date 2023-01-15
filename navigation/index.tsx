@@ -13,6 +13,7 @@ import ModalScreenEditProfile from '../screens/ModalScreenEditProfile';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+
 import {
   RootStackParamList,
   RootTabParamList,
