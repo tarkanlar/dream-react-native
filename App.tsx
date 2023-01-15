@@ -14,6 +14,8 @@ import { UserContextProvider, useUser } from './components/UserContext';
 
 import AuthScreen from './screens/AuthScreen';
 
+import Auth from './components/Auth';
+
 import 'react-native-url-polyfill/auto';
 
 // Define the config

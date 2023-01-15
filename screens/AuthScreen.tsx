@@ -2,18 +2,17 @@ import * as React from 'react';
 import { View, Button, Text } from 'react-native';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { LoginForm } from '../components/Auth/LoginForm';
-import { SignupForm } from '../components/Auth/SignupForm';
+import LoginForm  from '../components/Auth/LoginForm';
+import SignupForm from '../components/Auth/SignupForm';
 import { OTPform } from '../components/Auth/OTPform';
 
-import { handleLogin, handleSignup, handleToken } from '../components/Auth/AuthHelper';
 import { AuthStackScreenProps } from '../types';
 
 function LoginScreen({ navigation,
 }: AuthStackScreenProps<'Login'>) {
   return (
     <>
-    <LoginForm handleLogin={handleLogin}/>
+    <LoginForm navigation={ navigation } />
      </>
   );
 }
@@ -22,7 +21,7 @@ function SignupScreen({ navigation,
 }: AuthStackScreenProps<'Signup'>) {
   return (
     <>
-    <SignupForm handleSignup={handleSignup} navigation={navigation}/>
+    <SignupForm navigation={navigation}/>
 </>
   );
 }
@@ -31,7 +30,7 @@ function OTPScreen({ navigation,
 }: AuthStackScreenProps<'OTP'>) {
   return (
     <>
-    <OTPform handleToken={handleToken} navigation={navigation}/>
+    <OTPform navigation={navigation}/>
 </>
   );
 }

@@ -2,25 +2,23 @@ import { Formik } from 'formik';
 import { PrimaryButton } from '../UI/Button';
 import { PrimaryInput } from '../UI/Input';
 import { FormSchema } from '../../lib/helpers';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Center, Heading, VStack, FormControl, Text, WarningOutlineIcon, Icon, HStack } from 'native-base';
 import { LinkButton } from '../UI/Button';
 
+import { handleLogin } from '../../components/Auth/AuthHelper';
 
 
-interface Props {
-  handleLogin: (email: string, password: string) => void;
-}
 
-export const LoginForm: React.FC<Props> = ({ handleLogin, navigation }) => {
+export default function Login({ navigation }) {
   const [passShow, setPassShow] = useState<boolean>(false);
 
   return (
     <Formik
     initialValues={{
-      email: '',
-      password: '',
+      email: 'tarkan@hey.com',
+      password: 'Aq2313ws0!',
     }}
     validationSchema={FormSchema}
     onSubmit={values =>

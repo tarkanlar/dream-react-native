@@ -1,18 +1,16 @@
 import { Formik } from 'formik';
 import { PrimaryButton } from '../UI/Button';
 import { PrimaryInput } from '../UI/Input';
-//import { FormSchema } from '../../lib/helpers';
-import { useState } from 'react';
+import { FormSchema } from '../../lib/helpers';
+import React, { useState } from 'react';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Center, Heading, VStack, FormControl, Text, WarningOutlineIcon, Icon, HStack } from 'native-base';
 import { LinkButton } from '../UI/Button';
- 
+import { handleSignup } from '../../components/Auth/AuthHelper';
 
-interface Props {
-    handleSignup: (email: string, password: string) => void;
-}
 
-export const SignupForm: React.FC<Props> = ({ handleSignup }) => {
+
+export default function Signup({ navigation }){
   const [passShow, setPassShow] = useState<boolean>(false);
 
   return (
@@ -21,6 +19,7 @@ export const SignupForm: React.FC<Props> = ({ handleSignup }) => {
       email: '',
       password: '',
     }}
+    validationSchema={FormSchema}
     onSubmit={values =>
       handleSignup(
         values.email,
@@ -51,7 +50,7 @@ export const SignupForm: React.FC<Props> = ({ handleSignup }) => {
             maxW="100%"
           >
             <PrimaryInput
-              type="text"
+              type="email"
               placeholder="Email"
               onChangeText={handleChange('email')}
               onBlur={handleBlur('email')}

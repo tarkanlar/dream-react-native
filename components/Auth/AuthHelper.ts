@@ -6,8 +6,6 @@ import { useNavigation } from '@react-navigation/native'
 
 export const handleLogin = async (email: string, password: string) => {
   
-const { navigate } = useNavigation()
-
 const { error, user } = await supabase.auth.signIn({ email, password })
 
   if (!error && !user) Alert.alert('Check your email for the code');
@@ -22,12 +20,11 @@ Alert.alert(error.message);
 };
 export const handleSignup = async (email: string, password: string) => {
 // submit OTP token with email
-console.log('email', email)
-console.log('password', password)
+
     try {
     const { data, error, status } = await supabase
     .from('profiles')
-    .select(email)
+    .select(`email`)
     .eq('email', email)
     .single();
     if (error && status !== 406) {
