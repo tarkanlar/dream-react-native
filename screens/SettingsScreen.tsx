@@ -1,12 +1,13 @@
 import { ScrollView, VStack, Text, Icon, useColorMode, Input, Stack } from 'native-base';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { PrimaryButton } from '../components/UI/Button';
-import { useUser, storeProfileData, SignOut } from '../components/UserContext';
+import { useUser, storeProfileData, SignOut, updateProfileData } from '../components/UserContext';
 import { RootTabScreenProps } from '../types';
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/initSupabase";
 import { Alert, View } from "react-native";
 import { ApiError } from "@supabase/supabase-js";
+import UploadImage from '../components/UploadImage';
 
 export default function SettingsScreen({
   navigation,
@@ -19,6 +20,20 @@ export default function SettingsScreen({
   const [website, setWebsite] = useState(profile.website);
   const [avatar_url, setAvatar_url] = useState(profile.avatar_url);
 
+// create unUpdateProfileData function
+  const onUpdateProfileData = async () => {
+    console.log('updateProfileData');
+    try {
+      setLoading(true);
+      if (!user) throw new Error("No user on the session!");
+      updateProfileData ({ username: 'kuku'});
+    } catch (error) {
+      Alert.alert((error as ApiError).message);
+    } finally {
+      setLoading(false);
+      console.log(profile);
+    }
+  };
 
   
   async function updateProfile({
@@ -85,8 +100,12 @@ export default function SettingsScreen({
           Edit Profile
         </PrimaryButton>
         <PrimaryButton onPress={() => SignOut()}>Sign Out</PrimaryButton>
+        <PrimaryButton onPress={() => onUpdateProfileData()}>Update Profile Data</PrimaryButton>
+
         <View>
         <Stack space={6} w="75%" maxW="300px" mx="auto">
+        <UploadImage/>
+
         <Input size="xl" label="Email" value={user?.email} disabled />
 
 

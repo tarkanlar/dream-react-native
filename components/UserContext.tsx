@@ -123,3 +123,34 @@ export const storeProfileData = async (value: any) => {
     // saving error
   }
 }
+
+// get profile data 
+export const getProfileData = async () => {
+  try {
+    const profileData = await AsyncStorage.getItem('@profile')
+    if(profileData !== null) {  
+      return JSON.parse(profileData);
+    } 
+  } catch(e) {
+    // error reading value
+  }
+}
+
+export const updateProfileData = async (value: any) => {
+  try {
+
+    const profileData = await AsyncStorage.getItem('@profile')
+    if(profileData !== null) {
+     
+      const profile = JSON.parse(profileData);
+      console.log('profile', profile);
+      const newProfile = {...profile, ...value}
+      console.log('value', value);
+      const newProfileString = JSON.stringify(newProfile);
+      await AsyncStorage.setItem('@profile', newProfileString);
+    }
+
+  } catch (e) {
+    // saving error
+  }
+}

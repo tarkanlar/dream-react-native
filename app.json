@@ -19,6 +19,9 @@
       "**/*"
     ],
     "ios": {
+       "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera to scan barcodes on event tickets."
+      },
       "supportsTablet": true
     },
     "android": {
@@ -30,5 +33,14 @@
     "web": {
       "favicon": "./assets/images/favicon.png"
     }
-  }
+  },
+  "plugins": [
+    [
+      "expo-media-library",
+      {
+        "photosPermission": "Allow $(PRODUCT_NAME) to access your photos.",
+        "savePhotosPermission": "Allow $(PRODUCT_NAME) to save photos."
+      }
+    ]
+  ]
 }

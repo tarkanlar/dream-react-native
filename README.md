@@ -125,3 +125,9 @@ Github pages - [https://sergeycode.github.io/](https://sergeycode.github.io/)
 [supabase]: https://shields.io/badge/supabase-black?logo=supabase&style=for-the-badge
 [native-base]: https://img.shields.io/badge/native_base-%2320232a.svg?style=for-the-badge&logo=github&logoColor=%2361DAFB
 [typescript]: https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white
+
+
+.env 
+API_URL=
+REACT_NATIVE_SUPABASE_URL=
+REACT_NATIVE_SUPABASE_ANON_KEY=
