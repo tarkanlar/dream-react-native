@@ -1,9 +1,8 @@
 import { RootTabScreenProps } from '../types';
 import React, { useState } from "react";
-import { StatusBar, Center, Heading, Text, View, ScrollView, KeyboardAvoidingView, useToast } from 'native-base';
+import { Center, Heading, Text, HStack, Spinner, ScrollView, KeyboardAvoidingView, useToast, Radio, Stack, VStack, Box, FormControl, Input, Slider, Flex } from 'native-base';
 import { Platform } from "react-native";
 import { PrimaryButton } from '../components/UI/Button';
-import { SecondaryInput } from '../components/UI/Input';
 import { API_URL } from '../lib/constants';
 
 export default function TabOneScreen({
@@ -48,93 +47,127 @@ export default function TabOneScreen({
   };
   if (loading) {
     return (
-      <Center>
-        <Text fontSize='lg'>Looking for the best gift ideas 🎁 💡</Text>
+      <Flex flex={1} justifyContent="center" alignItems="center">
+      <Center px="5" py="5" >
+      <VStack space={30} justifyContent="center" alignItems="center">
+          <Spinner size="lg" />
+        </VStack>
+        <Text fontSize='lg'>Looking for the best gift ideas</Text>
       </Center>
+      </Flex>
     );
   }
 
   if (result) {
     return (
-      <Center px={2} py={2} flex={1}>
-      <Heading>Here are some great gift ideas 🎁 💡</Heading>
-      <StatusBar
-        barStyle={Platform.OS === 'ios' ? 'light-content' : 'default'}
-      />
-   
-    
+
+      <Center px={5} py={2} flex={1}>
+         <ScrollView py={20}>
+        <Heading>Here are some great gift ideas</Heading>
         <Text fontSize='sm'>{result}</Text>
-        <PrimaryButton
-                  isLoading={loading}
-                  isLoadingText="loading"
-                  onPress={() => onTryAgain()}
-                >
-                  Try again
-                </PrimaryButton>
+        </ScrollView>
+        <PrimaryButton mb={10}
+          isLoading={loading}
+          isLoadingText="loading"
+          onPress={() => onTryAgain()}
+        >
+          Try again
+        </PrimaryButton>
+
       </Center>
+
     );
   }
 
   return (
-    <Center px={2} py={2} flex={1}>
-    <Heading>Generate gift ideas 🎁 💡</Heading>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
-      >
-        <ScrollView style={{ flex: 1 }}>
-          <View>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1 }}
+    >
+      <ScrollView style={{ flex: 1 }}>
+        <Stack space={1} alignSelf="center" px="10" safeArea mt="4" w={{
+          base: "100%",
+          md: "5%"
+        }}>
+          <Box>
+            <FormControl mb="5">
+              <FormControl.Label>Select Gender</FormControl.Label>
+              <Radio.Group name="gender" accessibilityLabel="Gender" value={gender} onChange={nextValue => {
+                setGender(nextValue);
+              }}>
+                <HStack space={10} px="10">
+                  <Radio value="man" my={1}>
+                    Man
+                  </Radio>
+                  <Radio value="two" my={1}>
+                    Woman
+                  </Radio>
+                </HStack>
+              </Radio.Group>
+            </FormControl>
+          </Box>
+          <Box>
+            <FormControl mb="2">
+              <FormControl.Label>Age</FormControl.Label>
+              <Input
+                keyboardType="numeric"
+                value={age.toString()}
+                onChangeText={(s) => setAge(Number.parseInt(s) || 0)}
+              />
+
+            </FormControl>
+          </Box>
+          <Box>
+            <FormControl mb="2">
+              <FormControl.Label>Min Price ${priceMin}</FormControl.Label>
+              <Slider defaultValue={40} value={priceMin}
+                onChange={(s) => setPriceMin(Math.floor(s))}
+                size="lg">
+                <Slider.Track>
+                  <Slider.FilledTrack />
+                </Slider.Track>
+                <Slider.Thumb />
+              </Slider>
+            </FormControl>
+          </Box>
+          <Box>
+            <FormControl mb="2">
+              <FormControl.Label>Max Price ${priceMax}</FormControl.Label>
+              <Slider defaultValue={40} value={priceMax}
+                 maxValue={500}
+                onChange={(s) => setPriceMax(Math.floor(s))}
+                size="lg">
+                <Slider.Track>
+                  <Slider.FilledTrack />
+                </Slider.Track>
+                <Slider.Thumb />
+              </Slider>
+            </FormControl>
+          </Box>
+          <Box mb={5}>
+            <FormControl mb="2">
+              <FormControl.Label>Hobbies</FormControl.Label>
+              <Input
+                placeholder="Hobbies"
+                value={hobbies}
+                onChangeText={setHobbies}
+              />
+              <FormControl.HelperText>
+                Seperate hobbies with a comma
+              </FormControl.HelperText>
+            </FormControl>
+          </Box>
           <PrimaryButton
-                  isDisabled={gender === "man"}
-                  isLoadingText="Submitting"
-                  onPress={() => setGender("man")}
-                >
-                  Man
-                </PrimaryButton>
-                <PrimaryButton
-                  isDisabled={gender === "Woman"}
-                  isLoadingText="Submitting"
-                  onPress={() => setGender("Woman")}
-                >
-                  Woman
-                </PrimaryButton>
-          </View>
+            isLoading={loading}
+            isLoadingText="Submitting"
+            onPress={() => onSubmit()}
+          >
+            Generate gift ideas
+          </PrimaryButton>
+        </Stack>
 
-          <SecondaryInput
-            placeholder="Age"
-            keyboardType="numeric"
-            value={age.toString()}
-            onChangeText={(s) => setAge(Number.parseInt(s))}
-          />
 
-          <SecondaryInput
-            placeholder="Price from"
-            keyboardType="numeric"
-            value={priceMin.toString()}
-            onChangeText={(s) => setPriceMin(Number.parseInt(s))}
-          />
-
-          <SecondaryInput
-            placeholder="Price to"
-            keyboardType="numeric"
-            value={priceMax.toString()}
-            onChangeText={(s) => setPriceMax(Number.parseInt(s))}
-          />
-
-          <SecondaryInput
-            placeholder="Hobbies"
-            value={hobbies}
-            onChangeText={setHobbies}
-          />
-            <PrimaryButton
-                  isLoading={loading}
-                  isLoadingText="Submitting"
-                  onPress={() => onSubmit()}
-                >
-                  Generate gift ideas
-                </PrimaryButton>
-        </ScrollView>
-      </KeyboardAvoidingView>
-      </Center>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
