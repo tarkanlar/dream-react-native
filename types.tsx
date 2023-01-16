@@ -30,7 +30,6 @@ export type AuthStackScreenProps<Screen extends keyof AuthStackParamList> =
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   Modal: undefined;
-  ModalEditProfile: undefined;
   NotFound: undefined;
 };
 

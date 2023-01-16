@@ -80,14 +80,9 @@ function RootNavigator() {
         options={{ title: 'Oops!' }}
       />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
-        <Stack.Screen
-          name="ModalEditProfile"
-          component={ModalScreenEditProfile}
-          options={{
-            title: 'Edit Profile',
-          }}
-        />
+        <Stack.Screen name="Modal" component={ModalScreen} options={{
+            title: 'About this app',
+          }} />
       </Stack.Group>
     </Stack.Navigator>
   );
@@ -112,8 +107,8 @@ function BottomTabNavigator() {
         name="TabOne"
         component={TabOneScreen}
         options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-          title: 'Generate gift ideas 🎁 💡',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Gifts',
+          tabBarIcon: ({ color }) => <TabBarIcon name="gift" color={color} />,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('Modal')}

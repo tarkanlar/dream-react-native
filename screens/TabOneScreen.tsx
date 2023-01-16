@@ -48,12 +48,12 @@ export default function TabOneScreen({
   if (loading) {
     return (
       <Flex flex={1} justifyContent="center" alignItems="center">
-      <Center px="5" py="5" >
-      <VStack space={30} justifyContent="center" alignItems="center">
-          <Spinner size="lg" />
-        </VStack>
-        <Text fontSize='lg'>Looking for the best gift ideas</Text>
-      </Center>
+        <Center px="5" py="5" >
+          <VStack space={30} justifyContent="center" alignItems="center">
+            <Spinner size="lg" />
+          </VStack>
+          <Text fontSize='lg'>Looking for the best gift ideas</Text>
+        </Center>
       </Flex>
     );
   }
@@ -62,9 +62,9 @@ export default function TabOneScreen({
     return (
 
       <Center px={5} py={2} flex={1}>
-         <ScrollView py={20}>
-        <Heading>Here are some great gift ideas</Heading>
-        <Text fontSize='sm'>{result}</Text>
+        <ScrollView py={20}>
+          <Heading>Here are some great gift ideas</Heading>
+          <Text fontSize='sm'>{result}</Text>
         </ScrollView>
         <PrimaryButton mb={10}
           isLoading={loading}
@@ -85,10 +85,12 @@ export default function TabOneScreen({
       style={{ flex: 1 }}
     >
       <ScrollView style={{ flex: 1 }}>
-        <Stack space={1} alignSelf="center" px="10" safeArea mt="4" w={{
+        <Stack space={1} alignSelf="center" px="10" safeArea mt="2" w={{
           base: "100%",
           md: "5%"
         }}>
+          <Heading>Generate gift ideas 🎁 💡</Heading>
+
           <Box>
             <FormControl mb="5">
               <FormControl.Label>Select Gender</FormControl.Label>
@@ -134,7 +136,7 @@ export default function TabOneScreen({
             <FormControl mb="2">
               <FormControl.Label>Max Price ${priceMax}</FormControl.Label>
               <Slider defaultValue={40} value={priceMax}
-                 maxValue={500}
+                maxValue={500}
                 onChange={(s) => setPriceMax(Math.floor(s))}
                 size="lg">
                 <Slider.Track>
